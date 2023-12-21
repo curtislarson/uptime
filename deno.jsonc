@@ -1,7 +1,9 @@
 {
   "compilerOptions": {},
   "tasks": {
-    "test": "deno test --unstable -A"
+    "test": "deno test --unstable -A",
+    "start": "DEBUG='*' ./server.ts",
+    "deploy": "deployctl deploy --project=quackware-uptime --prod server.ts --exclude=node_modules"
   },
   "lint": {}
 }

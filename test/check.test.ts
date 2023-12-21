@@ -1,6 +1,6 @@
-import { assertEquals } from "https://x.curtis.land/test-helpers/mod.ts";
 import { check } from "../src/check.ts";
 import { UptimeKv } from "../src/kv.ts";
+import { assertEquals } from "./deps.ts";
 
 const TEST_URL = {
   name: "Test URL",
