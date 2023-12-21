@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {},
+  "tasks": {
+    "test": "deno test --unstable -A"
+  },
+  "lint": {}
+}

@@ -1,0 +1,6 @@
+{
+  "name": "@quackware/uptime",
+  "devDependencies": {
+    "prettier": "^3.1.1"
+  }
+}
