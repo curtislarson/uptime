@@ -15,6 +15,7 @@ export function startCronJob(kv: UptimeKv) {
 
     const results = await Promise.allSettled(urls.map(async (url) => {
       const result = await check(url);
+      await kv.addCheckResponse(url, result);
       return {
         url,
         result,

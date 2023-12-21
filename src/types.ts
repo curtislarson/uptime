@@ -7,17 +7,20 @@ export interface UrlToCheck {
   readonly method?: "GET" | "POST";
 }
 
-export interface CheckSuccess {
-  ok: true;
+export interface BaseCheck {
   status: number;
   statusText: string;
+  ts: number;
+  ok: boolean;
+}
+
+export interface CheckSuccess extends BaseCheck {
+  ok: true;
   body: string;
 }
 
-export interface CheckFailure {
+export interface CheckFailure extends BaseCheck {
   ok: false;
-  status: number;
-  statusText: string;
   error?: Error;
 }
 

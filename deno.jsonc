@@ -2,8 +2,16 @@
   "compilerOptions": {},
   "tasks": {
     "test": "deno test --unstable -A",
-    "start": "DEBUG='*' ./server.ts",
-    "deploy": "deployctl deploy --project=quackware-uptime --prod server.ts --exclude=node_modules"
+    "start": "DEBUG='*' ./main.ts",
+    "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules"
   },
-  "lint": {}
+  "lint": {},
+  "deploy": {
+    "project": "663ec0bf-2893-4276-8670-ce630aafa091",
+    "exclude": [
+      "node_modules"
+    ],
+    "include": [],
+    "entrypoint": "main.ts"
+  }
 }

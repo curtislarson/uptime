@@ -18,6 +18,7 @@ export async function check(toCheck: UrlToCheck): Promise<CheckResponse> {
       ok: false,
       status: res.status,
       statusText: res.statusText,
+      ts: new Date().getTime(),
     };
   }
 
@@ -28,6 +29,7 @@ export async function check(toCheck: UrlToCheck): Promise<CheckResponse> {
       status: res.status,
       statusText: res.statusText,
       error: new Error(`Invalid Status: ${res.status}`),
+      ts: new Date().getTime(),
     };
   }
 
@@ -38,6 +40,7 @@ export async function check(toCheck: UrlToCheck): Promise<CheckResponse> {
       status: res.status,
       statusText: res.statusText,
       error: new Error("Response body is null"),
+      ts: new Date().getTime(),
     };
   }
 
@@ -48,6 +51,7 @@ export async function check(toCheck: UrlToCheck): Promise<CheckResponse> {
     status: res.status,
     statusText: res.statusText,
     body,
+    ts: new Date().getTime(),
   };
 
   log(`Check succeeded`);
