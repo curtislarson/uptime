@@ -1,5 +1,7 @@
 import { CheckResponse, UrlToCheck } from "./types.ts";
 
+const SEVEN_DAYS_MS = 86400 * 7 * 1000;
+
 export class UptimeKv {
   static URL_KEY_PREFIX = "url";
   static CHECK_KEY_PREFIX = "check";
@@ -44,6 +46,7 @@ export class UptimeKv {
     return await this.kv.set(
       [UptimeKv.CHECK_KEY_PREFIX, check.name, now],
       response,
+      { expireIn: SEVEN_DAYS_MS },
     );
   }
 

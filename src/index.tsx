@@ -20,7 +20,7 @@ const CheckResponseGrid: FC<{ url: UrlToCheck; checks: CheckResponse[] }> = (pro
       </h2>
       {props.checks.map((c) => (
         <div>
-          {c.ts} - {c.status} - {c.statusText}
+          {new Date(c.ts).toUTCString()} - {c.status} - {c.statusText}
         </div>
       ))}
     </div>
