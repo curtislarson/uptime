@@ -1,10 +1,8 @@
-/** @jsx jsx */
-/** @jsxFrag Fragment */
-
-import { Hono, jsx, serveStatic } from "../deps.ts";
-import { Index } from "./index.tsx";
+import { Hono, h, serveStatic } from "../deps.ts";
+import StatusPage from "./components/StatusPage.tsx";
 import { UptimeKv } from "./kv.ts";
 import { logger } from "./logger.ts";
+import { renderToHtml } from "./render.tsx";
 import { UrlToCheck, CheckResponse } from "./types.ts";
 
 // This is called from the `main.ts` file in the parent directory so the path has
@@ -26,7 +24,9 @@ export function createServer(kv: UptimeKv) {
       urlToResponseMap.set(url, checkResponses);
     }
 
-    return c.html(<Index checks={urlToResponseMap} urls={urlsToCheck}></Index>);
+    const html = await renderToHtml(<StatusPage checks={urlToResponseMap} urls={urlsToCheck}></StatusPage>);
+
+    return c.html(html);
   });
 
   return app;

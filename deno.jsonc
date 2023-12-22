@@ -1,5 +1,9 @@
 {
-  "compilerOptions": {},
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxFragmentFactory": "h",
+    "jsxImportSource": "https://esm.quack.id/preact@10.19.3"
+  },
   "tasks": {
     "test": "deno test --unstable -A",
     "start": "DEBUG='*' ./main.ts",
