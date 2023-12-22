@@ -56,7 +56,7 @@ export class UptimeKv {
     });
     const responses: CheckResponse[] = [];
     for await (const response of iter) {
-      responses.push(response.value);
+      responses.unshift(response.value);
     }
 
     return responses;
