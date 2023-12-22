@@ -1,5 +1,5 @@
 import { h } from "../../deps.ts";
-import CheckResponseGrid from "./CheckResponseGrid.tsx";
+import CheckResponseGrid from "./CheckResponseCard.tsx";
 import { CheckResponse, UrlToCheck } from "../types.ts";
 
 export interface IndexProps {
@@ -10,7 +10,8 @@ export interface IndexProps {
 export default function StatusPage(props: IndexProps) {
   return (
     <div>
-      <h1 class="text-2xl">Recent Checks</h1>
+      <h1 class="text-2xl font-semibold">Recent Checks</h1>
+      <hr class="my-2" />
       <div class="grid grid-cols-4">
         {props.urls.map((url) => (
           <CheckResponseGrid url={url} checks={props.checks.get(url) ?? []} />
