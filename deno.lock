@@ -1,5 +1,16 @@
 {
   "version": "3",
+  "packages": {
+    "specifiers": {
+      "npm:dayjs": "npm:dayjs@1.11.10"
+    },
+    "npm": {
+      "dayjs@1.11.10": {
+        "integrity": "sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==",
+        "dependencies": {}
+      }
+    }
+  },
   "redirects": {
     "http://esm.quack.id/v132/@sinclair/typebox@0.24.41/compiler/index.d.ts": "https://esm.quack.id/v132/@sinclair/typebox@0.24.41/compiler/index.d.ts",
     "http://esm.quack.id/v132/@sinclair/typebox@0.24.41/conditional/index.d.ts": "https://esm.quack.id/v132/@sinclair/typebox@0.24.41/conditional/index.d.ts",

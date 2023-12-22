@@ -3,14 +3,13 @@
   "tasks": {
     "test": "deno test --unstable -A",
     "start": "DEBUG='*' ./main.ts",
+    "watch": "DEBUG='*' deno run -A --unstable --watch ./main.ts",
     "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules"
   },
   "lint": {},
   "deploy": {
     "project": "663ec0bf-2893-4276-8670-ce630aafa091",
-    "exclude": [
-      "node_modules"
-    ],
+    "exclude": ["node_modules"],
     "include": [],
     "entrypoint": "main.ts"
   }

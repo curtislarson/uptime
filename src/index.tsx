@@ -3,6 +3,7 @@
 
 import { jsx, Fragment, FC } from "../deps.ts";
 import { CheckResponse, UrlToCheck } from "./types.ts";
+import dayjs from "npm:dayjs";
 
 const Layout: FC = (props) => {
   return (
@@ -20,7 +21,8 @@ const CheckResponseGrid: FC<{ url: UrlToCheck; checks: CheckResponse[] }> = (pro
       </h2>
       {props.checks.map((c) => (
         <div>
-          {new Date(c.ts).toUTCString()} - {c.status} - {c.statusText}
+          <span>{c.ok ? "✅" : "❌"}</span>
+          <span>{dayjs(c.ts).format()}</span> - {c.status} - {c.statusText}
         </div>
       ))}
     </div>
