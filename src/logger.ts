@@ -1,3 +1,3 @@
-import { debug } from "../deps.ts";
+import { pino } from "../deps.ts";
 
-export const log = debug("@quackware:uptime");
+export const logger = pino();

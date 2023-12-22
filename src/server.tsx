@@ -4,13 +4,13 @@
 import { Hono, jsx } from "../deps.ts";
 import { Index } from "./index.tsx";
 import { UptimeKv } from "./kv.ts";
-import { log } from "./logger.ts";
+import { logger } from "./logger.ts";
 import { UrlToCheck, CheckResponse } from "./types.ts";
 
 export function createServer(kv: UptimeKv) {
   const app = new Hono();
 
-  log("Initializing server");
+  logger.info("Initializing server");
 
   app.get("/", async (c) => {
     const urlToResponseMap = new WeakMap<UrlToCheck, CheckResponse[]>();

@@ -11,4 +11,4 @@ export {
   virtualSheet,
 } from "https://esm.quack.id/twind@0.16.19/sheets";
 
-export * from "https://git.quack.id/logger/mod.ts";
+export * from "npm:pino";

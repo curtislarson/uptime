@@ -1,6 +1,8 @@
+import dayjs from "npm:dayjs";
+import { logger } from "./logger.ts";
 import { CheckResponse, UrlToCheck } from "./types.ts";
 
-const SEVEN_DAYS_MS = 86400 * 7 * 1000;
+const ONE_DAY_MS = 86400 * 1000;
 
 export class UptimeKv {
   static URL_KEY_PREFIX = "url";
@@ -46,13 +48,24 @@ export class UptimeKv {
     return await this.kv.set(
       [UptimeKv.CHECK_KEY_PREFIX, check.name, now],
       response,
-      { expireIn: SEVEN_DAYS_MS },
+      { expireIn: ONE_DAY_MS },
     );
   }
 
   async getCheckResponses(check: UrlToCheck) {
+    const oneDayAgo = dayjs().add(-1, "day").toDate().getTime();
+
+    logger.info({
+      oneDayAgo,
+      check,
+    }, "Retrieving responses");
+
     const iter = this.kv.list<CheckResponse>({
-      prefix: [UptimeKv.CHECK_KEY_PREFIX, check.name],
+      prefix: [
+        UptimeKv.CHECK_KEY_PREFIX,
+        check.name,
+      ],
+      start: [UptimeKv.CHECK_KEY_PREFIX, check.name, oneDayAgo],
     });
     const responses: CheckResponse[] = [];
     for await (const response of iter) {
