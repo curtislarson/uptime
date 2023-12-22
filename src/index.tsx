@@ -50,14 +50,14 @@ const CheckResponseGrid: FC<{ url: UrlToCheck; checks: CheckResponse[] }> = (pro
 export const Index: FC<{ urls: UrlToCheck[]; checks: WeakMap<UrlToCheck, CheckResponse[]> }> = (props) => {
   sheet.reset();
   const body = (
-    <body>
+    <div>
       <h1 class={tw`text-secondary`}>Recent Checks</h1>
       <div class={tw`grid grid-cols-4`}>
         {props.urls.map((url) => (
           <CheckResponseGrid url={url} checks={props.checks.get(url) ?? []} />
         ))}
       </div>
-    </body>
+    </div>
   );
   const head = { __html: getStyleTag(sheet) };
   return <Layout head={head}>{body}</Layout>;
