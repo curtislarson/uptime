@@ -1,13 +1,31 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 
-import { jsx, Fragment, FC } from "../deps.ts";
+import { jsx, Fragment, FC, virtualSheet, setup, tw, getStyleTag } from "../deps.ts";
 import { CheckResponse, UrlToCheck } from "./types.ts";
 import dayjs from "npm:dayjs";
 
-const Layout: FC = (props) => {
+const sheet = virtualSheet();
+
+setup({
+  theme: {
+    colors: {
+      background: {
+        200: "#585572",
+        500: "#22212c",
+      },
+      primary: "#8aff80",
+      secondary: "#9850ff",
+      orange: "#FFCA80",
+    },
+  },
+  sheet,
+});
+
+const Layout: FC<{ head: { __html: string } }> = (props) => {
   return (
     <html>
+      <head dangerouslySetInnerHTML={props.head}></head>
       <body>{props.children}</body>
     </html>
   );
@@ -30,12 +48,17 @@ const CheckResponseGrid: FC<{ url: UrlToCheck; checks: CheckResponse[] }> = (pro
 };
 
 export const Index: FC<{ urls: UrlToCheck[]; checks: WeakMap<UrlToCheck, CheckResponse[]> }> = (props) => {
-  return (
-    <Layout>
-      <h1>Recent Checks</h1>
-      {props.urls.map((url) => (
-        <CheckResponseGrid url={url} checks={props.checks.get(url) ?? []} />
-      ))}
-    </Layout>
+  sheet.reset();
+  const body = (
+    <body>
+      <h1 class={tw`text-secondary`}>Recent Checks</h1>
+      <div class={tw`grid grid-cols-4`}>
+        {props.urls.map((url) => (
+          <CheckResponseGrid url={url} checks={props.checks.get(url) ?? []} />
+        ))}
+      </div>
+    </body>
   );
+  const head = { __html: getStyleTag(sheet) };
+  return <Layout head={head}>{body}</Layout>;
 };

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag Fragment */
 
-import { Hono, jsx, Fragment } from "../deps.ts";
+import { Hono, jsx } from "../deps.ts";
 import { Index } from "./index.tsx";
 import { UptimeKv } from "./kv.ts";
 import { log } from "./logger.ts";
