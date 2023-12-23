@@ -6,8 +6,8 @@
   },
   "tasks": {
     "test": "deno test --unstable -A",
-    "start": "DEBUG='*' ./main.ts",
-    "watch": "DEBUG='*' deno run -A --unstable --watch ./main.ts",
+    "start": "./main.ts",
+    "watch": "deno run -A --unstable --watch ./main.ts",
     "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules"
   },
   "lint": {},

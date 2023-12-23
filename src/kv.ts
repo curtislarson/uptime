@@ -15,6 +15,7 @@ export class UptimeKv {
 
   private constructor(private kv: Deno.Kv) {}
 
+  /** Retrieves a list of all urls to check */
   async getUrls() {
     const iter = this.kv.list<UrlToCheck>({
       prefix: [UptimeKv.URL_KEY_PREFIX],
@@ -27,6 +28,7 @@ export class UptimeKv {
     return urls;
   }
 
+  /** Adds a new url to check */
   async addUrl(toCheck: UrlToCheck) {
     return await this.kv.set(
       [UptimeKv.URL_KEY_PREFIX, toCheck.name],
@@ -38,11 +40,13 @@ export class UptimeKv {
     );
   }
 
+  /** Given the name of a url to check, retrieves the full `UrlToCheck` object */
   async getUrl(name: string) {
     const retrieved = await this.kv.get([UptimeKv.URL_KEY_PREFIX, name]);
     return retrieved.value;
   }
 
+  /** Adds a new `CheckResponse` for the given `UrlToCheck` */
   async addCheckResponse(check: UrlToCheck, response: CheckResponse) {
     const now = new Date().getTime();
     return await this.kv.set(
@@ -52,11 +56,12 @@ export class UptimeKv {
     );
   }
 
+  /** Retrieves all `CheckResponse` objects in the past day for the given `UrlToCheck` */
   async getCheckResponses(check: UrlToCheck) {
-    const oneDayAgo = dayjs().add(-1, "day").toDate().getTime();
+    const oneHourAgo = dayjs().add(-1, "hour").toDate().getTime();
 
     logger.info({
-      oneDayAgo,
+      oneHourAgo,
       check,
     }, "Retrieving responses");
 
@@ -65,7 +70,8 @@ export class UptimeKv {
         UptimeKv.CHECK_KEY_PREFIX,
         check.name,
       ],
-      start: [UptimeKv.CHECK_KEY_PREFIX, check.name, oneDayAgo],
+      // This gets all values that have their third key (timestamp) >= `oneHourAgo`
+      start: [UptimeKv.CHECK_KEY_PREFIX, check.name, oneHourAgo],
     });
     const responses: CheckResponse[] = [];
     for await (const response of iter) {
@@ -75,6 +81,7 @@ export class UptimeKv {
     return responses;
   }
 
+  /** Close the kv store to prevent memory leak */
   close() {
     return this.kv.close();
   }
