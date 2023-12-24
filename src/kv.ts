@@ -28,6 +28,12 @@ export class UptimeKv {
     return urls;
   }
 
+  /** Given the name of a url to check, retrieves the full `UrlToCheck` object */
+  async getUrl(name: string) {
+    const retrieved = await this.kv.get([UptimeKv.URL_KEY_PREFIX, name]);
+    return retrieved.value;
+  }
+
   /** Adds a new url to check */
   async addUrl(toCheck: UrlToCheck) {
     return await this.kv.set(
@@ -38,12 +44,6 @@ export class UptimeKv {
         method: toCheck.method ?? "GET",
       },
     );
-  }
-
-  /** Given the name of a url to check, retrieves the full `UrlToCheck` object */
-  async getUrl(name: string) {
-    const retrieved = await this.kv.get([UptimeKv.URL_KEY_PREFIX, name]);
-    return retrieved.value;
   }
 
   /** Adds a new `CheckResponse` for the given `UrlToCheck` */
@@ -79,6 +79,35 @@ export class UptimeKv {
     }
 
     return responses;
+  }
+
+  async getAllCheckResponses(check: UrlToCheck) {
+    const iter = this.kv.list<CheckResponse>({
+      prefix: [
+        UptimeKv.CHECK_KEY_PREFIX,
+        check.name,
+      ],
+    });
+    const responses: Deno.KvEntry<CheckResponse>[] = [];
+    for await (const response of iter) {
+      responses.unshift(response);
+    }
+
+    return responses;
+  }
+
+  async deleteCheckResponsesForUrl(url: UrlToCheck) {
+    const checkResponses = await this.getAllCheckResponses(url);
+    return await Promise.all(
+      checkResponses.map((response) => this.kv.delete(response.key)),
+    );
+  }
+
+  async deleteAllCheckResponses() {
+    const urls = await this.getUrls();
+    return await Promise.all(
+      urls.map((url) => this.deleteCheckResponsesForUrl(url)),
+    );
   }
 
   /** Close the kv store to prevent memory leak */

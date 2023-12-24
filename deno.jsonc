@@ -8,7 +8,8 @@
     "test": "deno test --unstable -A",
     "start": "./main.ts",
     "watch": "deno run -A --unstable --watch ./main.ts",
-    "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules"
+    "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules",
+    "delete-checks": "deno run -A --unstable --no-check ./tasks/delete-checks.ts"
   },
   "lint": {},
   "deploy": {

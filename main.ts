@@ -1,4 +1,4 @@
-#!/usr/bin/env deno run -A --unstable
+#!/usr/bin/env deno run -A --unstable --no-check
 
 // Auto load from `.env` files if available
 import "https://deno.land/std@0.210.0/dotenv/load.ts";
