@@ -6,7 +6,7 @@ import "https://deno.land/std@0.210.0/dotenv/load.ts";
 import { startCronJob } from "./src/cron.ts";
 import { UptimeKv } from "./src/kv.ts";
 import { logger } from "./src/logger.ts";
-import { createServer } from "./src/server.tsx";
+import { createServer } from "./src/server.ts";
 
 const kv = await UptimeKv.init(Deno.env.get("DENO_KV_PATH"));
 
@@ -16,5 +16,5 @@ if (Deno.env.get("DENO_ENV") === "dev") {
   startCronJob(kv);
 }
 
-const server = createServer(kv);
+const server = await createServer(kv);
 Deno.serve(server.fetch);

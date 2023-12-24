@@ -1,6 +1,5 @@
-import dayjs from "npm:dayjs";
+import { CheckResponse, dayjs, UrlToCheck } from "../deps.ts";
 import { logger } from "./logger.ts";
-import { CheckResponse, UrlToCheck } from "./types.ts";
 
 const ONE_DAY_MS = 86400 * 1000;
 

@@ -1,4 +1,4 @@
-import { CheckResponse, UrlToCheck } from "../types.ts";
+import { CheckResponse, UrlToCheck } from "@quackware/uptime-types";
 import dayjs from "../date.ts";
 
 export interface CheckResponseCardProps {

@@ -1,0 +1,6 @@
+{
+  "name": "@quackware/uptime-server",
+  "dependencies": {
+    "@quackware/uptime-types": "../types"
+  }
+}
