@@ -1,6 +1,5 @@
-import dayjs from "npm:dayjs";
+import { CheckResponse, dayjs, UrlToCheck } from "../deps.ts";
 import { logger } from "./logger.ts";
-import { CheckResponse, UrlToCheck } from "./types.ts";
 
 const ONE_DAY_MS = 86400 * 1000;
 
@@ -75,7 +74,10 @@ export class UptimeKv {
     });
     const responses: CheckResponse[] = [];
     for await (const response of iter) {
-      responses.unshift(response.value);
+      responses.unshift({
+        ...response.value,
+        body: undefined,
+      });
     }
 
     return responses;

@@ -1,5 +1,5 @@
+import { CheckResponse, UrlToCheck } from "../deps.ts";
 import { logger } from "./logger.ts";
-import { CheckResponse, UrlToCheck } from "./types.ts";
 
 /**
  * TODO:

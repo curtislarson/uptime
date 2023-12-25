@@ -1,21 +1,32 @@
 {
   "compilerOptions": {
+    "lib": [
+      "deno.ns",
+      "deno.window",
+      "deno.unstable"
+    ],
     "jsx": "react-jsx",
     "jsxFragmentFactory": "h",
     "jsxImportSource": "https://esm.quack.id/preact@10.19.3"
   },
   "tasks": {
     "test": "deno test --unstable -A",
-    "start": "./main.ts",
-    "watch": "deno run -A --unstable --watch ./main.ts",
-    "deploy": "deployctl deploy --project=quackware-uptime --prod main.ts --exclude=node_modules",
+    "start:server": "./packages/server/main.ts",
+    "watch": "deno run -A --unstable --watch ./packages/server/main.ts",
+    "deploy": "deployctl deploy --project=quackware-uptime --prod ./packages/server/main.ts --exclude='packages/server/node_modules,packages/www/node_modules' --include=packages,dist",
     "delete-checks": "deno run -A --unstable --no-check ./tasks/delete-checks.ts"
   },
   "lint": {},
   "deploy": {
     "project": "663ec0bf-2893-4276-8670-ce630aafa091",
-    "exclude": ["node_modules"],
-    "include": [],
-    "entrypoint": "main.ts"
+    "exclude": [
+      "packages/server/node_modules",
+      "packages/www/node_modules"
+    ],
+    "include": [
+      "packages",
+      "dist"
+    ],
+    "entrypoint": "packages/server/main.ts"
   }
 }

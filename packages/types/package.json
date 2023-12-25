@@ -1,0 +1,5 @@
+{
+  "name": "@quackware/uptime-types",
+  "module": "./mod.ts",
+  "main": "./mod.ts"
+}
