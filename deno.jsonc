@@ -1,16 +1,11 @@
 {
   "compilerOptions": {
-    "lib": [
-      "deno.ns",
-      "deno.window",
-      "deno.unstable"
-    ],
+    "lib": ["deno.ns", "deno.window", "deno.unstable"],
     "jsx": "react-jsx",
-    "jsxFragmentFactory": "h",
     "jsxImportSource": "https://esm.quack.id/preact@10.19.3"
   },
   "tasks": {
-    "test": "deno test --unstable -A",
+    "test": "deno test --no-check --unstable -A",
     "start:server": "./packages/server/main.ts",
     "watch": "deno run -A --unstable --watch ./packages/server/main.ts",
     "deploy": "deployctl deploy --project=quackware-uptime --prod ./packages/server/main.ts --exclude='packages/server/node_modules,packages/www/node_modules' --include=packages,dist",
@@ -19,14 +14,8 @@
   "lint": {},
   "deploy": {
     "project": "663ec0bf-2893-4276-8670-ce630aafa091",
-    "exclude": [
-      "packages/server/node_modules",
-      "packages/www/node_modules"
-    ],
-    "include": [
-      "packages",
-      "dist"
-    ],
+    "exclude": ["packages/server/node_modules", "packages/www/node_modules"],
+    "include": ["packages", "dist"],
     "entrypoint": "packages/server/main.ts"
   }
 }

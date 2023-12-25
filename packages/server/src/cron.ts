@@ -1,11 +1,12 @@
 import { check } from "./check.ts";
+import { EmailService } from "./email.ts";
 import { UptimeKv } from "./kv.ts";
 import { logger } from "./logger.ts";
 
 // Every 10 minutes
 const URL_CHECK_SCHEDULE = "*/10 * * * *";
 
-export function startCronJob(kv: UptimeKv) {
+export function startCronJob(kv: UptimeKv, email: EmailService) {
   logger.info(`Initializing cron at schedule: '${URL_CHECK_SCHEDULE}'`);
 
   Deno.cron("Uptime URL Checker", URL_CHECK_SCHEDULE, async () => {
@@ -31,6 +32,10 @@ export function startCronJob(kv: UptimeKv) {
           checkResult.result,
           `Check result for '${checkResult.url.name}`,
         );
+
+        if (!checkResult.result.ok) {
+          await email.sendFailureEmail(checkResult.result, checkResult.url);
+        }
       }
     }
   });

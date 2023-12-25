@@ -47,7 +47,7 @@ export async function check(toCheck: UrlToCheck): Promise<CheckResponse> {
   const body = await res.text();
 
   const successResponse = {
-    ok: true,
+    ok: true as const,
     status: res.status,
     statusText: res.statusText,
     body,
