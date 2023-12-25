@@ -18,7 +18,9 @@ export default function StatusPage() {
       <hr class="my-2" />
       <div class="grid grid-cols-4 gap-2">
         {checks &&
-          Object.values(checks).map(({ checks, url }) => <CheckResponseCard url={url} checks={checks ?? []} />)}
+          Object.values(checks).map(({ checks, url }) => (
+            <CheckResponseCard key={url.url} url={url} checks={checks ?? []} />
+          ))}
       </div>
     </div>
   );

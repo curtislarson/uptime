@@ -16,12 +16,13 @@ export interface BaseCheck {
 
 export interface CheckSuccess extends BaseCheck {
   ok: true;
-  body: string;
+  body?: string;
 }
 
 export interface CheckFailure extends BaseCheck {
   ok: false;
   error?: Error;
+  body?: undefined;
 }
 
 export type CheckResponse = CheckSuccess | CheckFailure;

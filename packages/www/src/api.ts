@@ -2,6 +2,7 @@ import { ApiResponse, GetChecksResponse } from "@quackware/uptime-types";
 
 export class Api {
   private apiHost: string;
+  private fetch: typeof fetch;
 
   constructor() {
     const apiHost = import.meta.env.VITE_API_HOST;
@@ -10,10 +11,19 @@ export class Api {
     }
 
     this.apiHost = apiHost;
+
+    this.fetch = async (input: RequestInfo | URL, init: RequestInit = {}) => {
+      const headers = {
+        ...init.headers,
+        "Content-Type": "application/json",
+      };
+      init.headers = headers;
+      return await fetch(input, init);
+    };
   }
 
   async getChecks() {
-    const checks = await fetch(this.#getApiUrl("/checks")).then((res) =>
+    const checks = await this.fetch(this.#getApiUrl("/status")).then((res) =>
       res.json<ApiResponse<GetChecksResponse>>()
     );
     return checks.data;

@@ -1,4 +1,4 @@
-import { GetChecksResponse, Hono, join } from "../deps.ts";
+import { cors, GetChecksResponse, Hono, join } from "../deps.ts";
 import { UptimeKv } from "./kv.ts";
 import { logger } from "./logger.ts";
 
@@ -32,6 +32,8 @@ export async function createServer(kv: UptimeKv) {
   app.get("/quack.png", (c) => c.body(quackImage));
   app.get("/favicon.ico", (c) => c.body(favicon));
 
+  app.use("/api/*", cors());
+
   app.get("/api/v1/status", async (c) => {
     const urlToCheckResponsesMap: GetChecksResponse = {};
     const urlsToCheck = await kv.getUrls();
@@ -42,6 +44,7 @@ export async function createServer(kv: UptimeKv) {
         url,
       };
     }
+
     return c.json({ data: urlToCheckResponsesMap });
   });
 
